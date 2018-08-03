@@ -1,0 +1,319 @@
+<!--
+#           __    __     __________  ___    __    _______      ______     _        __
+#          /  /  /  /   /  ____    / \  \  / /   /  __   \    /_   __/   / \      /  /
+#         /  /__/  /   /  /    /  /   \  \/ /   /  /  /  /     /  /     /   \    /  /
+#        /        /   /  /____/  /     \   /   /  /  /  /     /  /     /  /  \  /  /
+#       /  __    /   /   ____   /      /  /   /  /  /  /     /  /     /  / \  \/  /
+#      /  /  /  /   /  /    /  /      /  /   /  /__/  /   __/  /_    /  /   \    /
+#     /__/  /__/   /__/    /__/      /__/   /________/   /______/   /__/     \__/
+
+
+
+#   Copyright ? 2018 by Nicolas Meseguer Iborra
+
+
+
+#   All rights reserved. No part of this code may be reproduced, distributed, 
+#   or transmitted in any form or by any means, including photocopying, recording, 
+#   or other electronic or mechanical methods, without the prior written permission 
+#   of the writter, except in the case of brief quotations embodied in critical 
+#   reviews and certain other noncommercial uses permitted by copyright law. For 
+#   permission requests, write to the owner's e-mail, nicolasmeseguer@icloud.com
+
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Reports App</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+	<style type="text/css">
+		.sugerMarcada {
+			background-color: lightgrey;
+		}
+	</style>
+</head>
+
+<body>
+	<noscript>
+		<h1>Javascript requerido</h1>
+	</noscript>
+	<br>
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#" id="page1">Partes</a></li>
+			<li><a href="#" id="page2">Consultas</a></li>
+			<li><a href="#" id="page3">Estadísticas</a></li>
+		</ul>
+	</div>
+	<br><br>
+	<div class="container pt-10 pb-10" id="page1content">
+	
+		<div class="row">
+		
+			<div class="col-12">
+				
+				<div class="row" id="profesorseccion">
+				
+				<div class="form-group col-12 col-sm-2">
+					<label for="usr">Fecha:</label>
+					<input type="date" class="form-control" id="fecha">
+				</div>
+				
+				<div class="form-group col-12 col-sm-10">
+				  <label for="usr">Profesor:</label>
+				  <input type="text" class="form-control" autofocus id="profesor">
+				  <div id="divSugerProfesor"></div>
+				</div>
+				
+				</div>
+				
+				<div class="row" id="alumnoseccion">
+				
+				<div class="form-group col-12 col-sm-2">
+					<label for="usr">Num Expediente:</label>
+					<input type="text" class="form-control" id="numexp">
+				</div>
+				
+				<div class="form-group col-12 col-sm-10">
+				  <label for="usr">Estudiante:</label>
+				  <input type="text" class="form-control" autofocus id="alumno">
+				  <div id="divSugerAlumno"></div>
+				</div>
+				
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<select class="form-control" id="divFaltas" >
+					
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<select class="form-control" id="divMedidas" >
+					
+					</select>
+				</div>
+				
+				<input type="button" id="anyParte" class="btn btn-info" value="A&ntilde;adir falta y medida a la tabla">
+				<input type="button" id="envParte" class="btn btn-success" value="Enviar Parte">
+				
+			</div>
+			<br>
+			<div class="col-12">
+			
+				<h2>Partes a enviar</h2>
+				<table id="faltamedida" class="table table-striped">
+				<tr>
+					<th>Falta</th>
+					<th>Medida</th>
+					<th>Quitar</th>
+				</tr>
+				</table>
+				<br>
+				<button id="envTabla" class="btn btn-success">Enviar partes listados en la tabla</button>
+				<br><br>
+			</div>
+		
+		</div>
+	
+	</div>
+	
+	<div class="container" id="page2content">
+		
+		<div class="container" id="spacet1">
+			<h3>Ultimos partes enviados</h3>
+		
+		</div>
+		
+		<br>
+	
+		<div class="container">
+				
+			<h3>Buscar partes por alumno</h3>
+				
+			<div class="row">
+				<div class="form-group col-12 col-sm-2">
+					<label for="usr">Num Expediente:</label>
+					<input type="text" class="form-control" id="numexp2">
+				</div>
+				
+				<div class="form-group col-12 col-sm-8">
+				  <label for="usr">Estudiante:</label>
+				  <input type="text" class="form-control" id="alumno2">
+				  <div id="divSugerAlumno2"></div>
+				</div>
+				
+				<div class="form-group col-12 col-sm-1">
+					<label class="invisible">Buscar</label>
+					<input type="button" id="consultasalumno" class="btn btn-success" value="Buscar">
+				</div>
+				
+				<div class="form-group col-12 col-sm-1">
+					<label class="invisible">Vaciar</label>
+					<input type="button" id="limpiarconsultasalumno" class="btn btn-warning" value="Vaciar">
+				</div>
+				
+				<div class="form-group col-12">
+					<table class="table table-striped" id="consultaalumnostabla">
+						<tr>
+							<th>Fecha</th>
+							<th>Profesor</th>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</div>
+		
+		<br>
+		
+		<div class="container">
+				
+			<h3>Buscar partes por profesor</h3>
+			
+			<div class="row">
+				<div class="form-group col-12 col-sm-3">
+				  <label for="usr">Nombre profesor:</label>
+				  <input type="text" class="form-control" id="profesor2">
+				  <div id="divSugerProfesor2"></div>
+				</div>
+				
+				<div class="form-group col-12 col-sm-1">
+					<label class="invisible">Buscar</label>
+					<input type="button" id="consultasprofesor" class="btn btn-success" value="Buscar">
+				</div>
+				
+				<div class="form-group col-12 col-sm-1">
+					<label class="invisible">Vaciar</label>
+					<input type="button" id="limpiarconsultasprofesor" class="btn btn-warning" value="Vaciar">
+				</div>
+				
+				<div class="form-group col-12 col-sm-7">
+					<table class="table table-striped" id="consultaprofesortabla">
+						<tr>
+							<th>Fecha</th>
+							<th>Alumno</th>
+							<th>Grupo</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<br>
+		
+		<div class="container">
+				
+			<h3>Buscar partes por fechas</h3>
+			
+			<div class="row">
+				<div class="col-3 col-sm-1">
+					<input type="text" class="form-control" id="anyoconsultas">
+				</div>
+			
+				<div class="col-3 col-sm-2">
+					<select name="mes" class="mx-auto form-control" id="mesanyoconsulta">
+						<option value="0">Selecciona mes</option>
+						<option value="1">Enero</option>
+						<option value="2">Febrero</option>
+						<option value="3">Marzo</option>
+						<option value="4">Abril</option>
+						<option value="5">Mayo</option>
+						<option value="6">Junio</option>
+						<option value="7">Julio</option>
+						<option value="8">Agosto</option>
+						<option value="9">Septiembre</option>
+						<option value="10">Octubre</option>
+						<option value="11">Noviembre</option>
+						<option value="12">Diciembre</option>
+					</select>
+				</div>
+				
+				<div class="col-3 col-sm-1">
+					<input type="button" id="consultasfechas" class="btn btn-success" value="Buscar">
+				</div>
+				
+				<div class="col-3 col-sm-1">
+					<input type="button" id="limpiarconsultasfechas" class="btn btn-warning" value="Vaciar">
+				</div>
+				
+				<div class="col-12 col-sm-7" id="consultasanyotabla">
+					<table class="table table-striped" id="consultasfechastabla">
+						<tr>
+							<th>Fecha</th>
+							<th>Alumno</th>
+							<th>Grupo</th>
+							<th>Profesor</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div class="container pt-10 pb-10" id="page3content">
+	
+		<div class="container">
+			<h3 class="text-center">Los 10 alumnos más amonestados</h3>
+			<br>
+			<canvas id="estadisticas1" width="400" height="100"></canvas>
+		</div>
+		
+		<div class="container">
+			<h3 class="text-center">Los 5 grupos más amonestados</h3>
+			<br>
+			<canvas id="estadisticas2" width="400" height="100"></canvas>
+		</div>
+		
+		<div class="container">
+			<h3 class="text-center">Los 5 profesores más amonestadores</h3>
+			<br>
+			<canvas id="estadisticas3" width="400" height="100"></canvas>
+		</div>
+		
+		<div class="container">
+			<h3 class="text-center">Grafica de comparación para diferentes ciclos</h3>
+			<br>
+			<canvas id="estadisticas4" width="400" height="100"></canvas>
+		</div>
+		
+	</div>
+	
+	<br><br><br>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
